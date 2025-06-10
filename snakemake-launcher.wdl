@@ -34,7 +34,7 @@ task RunSnakemakeBatch {
     cd workspace &&
     snakemake \
       --executor googlebatch \
-      --default-storage-provider gs \
+      --default-storage-provider gcs \
       --default-storage-prefix ~{remote_prefix} \
       --jobs 10 \
       --latency-wait 60 \
