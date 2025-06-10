@@ -33,14 +33,14 @@ task RunSnakemakeBatch {
     cp ~{env_yaml} workspace/snakemake-env.yaml &&
     cd workspace &&
     snakemake \
-      --google-batch \
+      --executor googlebatch \
       --default-storage-prefix ~{remote_prefix} \
       --jobs 10 \
       --latency-wait 60 \
       --use-conda \
       --rerun-incomplete \
       --googlebatch-region $REGION \
-      --googlebatch-service-account-email $SERVICE_ACCOUNT_EMAIL \
+      --googlebatch-service-account $SERVICE_ACCOUNT_EMAIL \
       --googlebatch-project $PROJECT_ID
   >>>
 
