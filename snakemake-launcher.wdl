@@ -36,6 +36,7 @@ task RunSnakemakeBatch {
       --executor googlebatch \
       --default-storage-provider gcs \
       --default-storage-prefix ~{remote_prefix} \
+      --storage-gcs-project $PROJECT_ID \
       --jobs 10 \
       --latency-wait 60 \
       --use-conda \
