@@ -10,6 +10,7 @@ task RunSnakemakeBatch {
     File script
     File env_yaml
     String remote_prefix
+    String docker_image
   }
 
   command <<<
@@ -34,7 +35,7 @@ task RunSnakemakeBatch {
   >>>
 
   runtime {
-    docker: "snakemake/snakemake:v7.32.4"
+    docker: docker_image
     memory: "4G"
     cpu: 2
   }
