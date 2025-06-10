@@ -14,9 +14,19 @@ task RunSnakemakeBatch {
   }
 
   command <<<
-    export GOOGLE_REGION=$(basename $(curl --silent -H "Metadata-Flavor: Google" metadata/computeMetadata/v1/instance/zone 2> /dev/null) | cut -d "-" -f1-2)
-    export GOOGLE_PROJECT=$(gcloud config get-value project)
-    export SERVICE_ACCOUNT_EMAIL=$(gcloud config get-value account)
+    METADATA="http://metadata.google.internal/computeMetadata/v1"
+    HEADER="Metadata-Flavor: Google"
+
+    PROJECT_ID=$(curl -s -H "$HEADER" "$METADATA/project/project-id")
+    SERVICE_ACCOUNT_EMAIL=$(curl -s -H "$HEADER" "$METADATA/instance/service-accounts/default/email")
+    ZONE_FULL=$(curl -s -H "$HEADER" "$METADATA/instance/zone")
+    ZONE=${ZONE_FULL##*/}
+    REGION=${ZONE%-*}
+
+    echo "Project ID:            $PROJECT_ID"
+    echo "Service Account Email: $SERVICE_ACCOUNT_EMAIL"
+    echo "Region:                $REGION"
+    
     mkdir -p workspace &&
     cp ~{snakefile} workspace/Snakefile &&
     cp ~{script} workspace/check_file.py &&
@@ -24,14 +34,14 @@ task RunSnakemakeBatch {
     cd workspace &&
     snakemake \
       --google-batch \
-      --default-remote-prefix ~{remote_prefix} \
+      --default-storage-prefix ~{remote_prefix} \
       --jobs 10 \
       --latency-wait 60 \
       --use-conda \
       --rerun-incomplete \
-      --google-batch-region $GOOGLE_REGION \
-      --google-batch-service-account-email $SERVICE_ACCOUNT_EMAIL \
-      --google-batch-project $GOOGLE_PROJECT
+      --googlebatch-region $REGION \
+      --googlebatch-service-account-email $SERVICE_ACCOUNT_EMAIL \
+      --googlebatch-project $PROJECT_ID
   >>>
 
   runtime {
