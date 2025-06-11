@@ -43,7 +43,7 @@ task RunSnakemakeBatch {
       --rerun-incomplete \
       --googlebatch-region $REGION \
       --googlebatch-service-account $SERVICE_ACCOUNT_EMAIL \
-      --googlebatch-project $PROJECT_ID
+      --googlebatch-project $PROJECT_ID \
       --gcp-network default
   >>>
 
