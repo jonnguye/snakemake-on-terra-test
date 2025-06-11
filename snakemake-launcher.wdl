@@ -29,11 +29,6 @@ task RunSnakemakeBatch {
     
     ls
 
-    mkdir -p workspace &&
-    cp ~{snakefile} workspace/Snakefile &&
-    cp ~{script} workspace/check_file.py &&
-    cp ~{env_yaml} workspace/snakemake-env.yaml &&
-    cd workspace &&
     snakemake \
       --executor googlebatch \
       --default-storage-provider gcs \
@@ -56,6 +51,6 @@ task RunSnakemakeBatch {
   }
 
   output {
-    File log = "workspace/.snakemake/log/snakemake.log"
+    File log = ".snakemake/log/snakemake.log"
   }
 }
