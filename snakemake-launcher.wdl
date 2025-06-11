@@ -27,6 +27,8 @@ task RunSnakemakeBatch {
     echo "Service Account Email: $SERVICE_ACCOUNT_EMAIL"
     echo "Region:                $REGION"
     
+    ls
+
     mkdir -p workspace &&
     cp ~{snakefile} workspace/Snakefile &&
     cp ~{script} workspace/check_file.py &&
