@@ -29,6 +29,12 @@ task RunSnakemakeBatch {
     
     ls
 
+    mkdir -p workspace &&
+    cp ~{snakefile} workspace/Snakefile &&Add commentMore actions
+    cp ~{script} workspace/check_file.py &&
+    cp ~{env_yaml} workspace/snakemake-env.yaml &&
+    cd workspace
+
     snakemake \
       --executor googlebatch \
       --default-storage-provider gcs \
@@ -42,6 +48,8 @@ task RunSnakemakeBatch {
       --googlebatch-service-account $SERVICE_ACCOUNT_EMAIL \
       --googlebatch-project $PROJECT_ID \
       --googlebatch-network global/networks/default
+
+    ls
   >>>
 
   runtime {
@@ -51,6 +59,8 @@ task RunSnakemakeBatch {
   }
 
   output {
+    Array[File] ws_log = glob("workspace/.snakemake/log/*.log")
+    Array[File] ws_batch_log = glob("workspace/.snakemake/googlebatch_logs/*.log")
     Array[File] log = glob(".snakemake/log/*.log")
     Array[File] batch_log = glob(".snakemake/googlebatch_logs/*.log")
   }
