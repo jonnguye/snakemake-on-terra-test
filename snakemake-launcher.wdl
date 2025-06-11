@@ -1,4 +1,4 @@
-version 1.0
+version 1.2
 
 workflow SnakemakeBatchLauncher {
   call RunSnakemakeBatch
@@ -51,6 +51,7 @@ task RunSnakemakeBatch {
   }
 
   output {
-    File log = ".snakemake/log/snakemake.log"
+    Array[File] log = glob(".snakemake/log/*.log")
+    Array[File] batch_log = glob(".snakemake/googlebatch_logs/*.log")
   }
 }
