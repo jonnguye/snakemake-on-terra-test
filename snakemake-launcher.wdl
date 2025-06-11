@@ -44,6 +44,7 @@ task RunSnakemakeBatch {
       --googlebatch-region $REGION \
       --googlebatch-service-account $SERVICE_ACCOUNT_EMAIL \
       --googlebatch-project $PROJECT_ID
+      --gcp-network default
   >>>
 
   runtime {
