@@ -49,7 +49,7 @@ task RunSnakemakeBatch {
       --googlebatch-project $PROJECT_ID \
       --googlebatch-network global/networks/network \
       --googlebatch-subnetwork regions/us-central1/subnetworks/subnetwork \
-      --googlebatch-boot-disk-image projects/cloud-hpc-image-public/global/images/family/hpc-rocky-linux-8-v20250508
+      --googlebatch-boot-disk-image projects/cloud-hpc-image-public/global/images/family/hpc-rocky-linux-8
 
     ls
   >>>
