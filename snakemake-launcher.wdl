@@ -47,7 +47,8 @@ task RunSnakemakeBatch {
       --googlebatch-region $REGION \
       --googlebatch-service-account $SERVICE_ACCOUNT_EMAIL \
       --googlebatch-project $PROJECT_ID \
-      --googlebatch-network projects/terra-0c2b3ab1/regions/us-central1/subnetworks/subnetwork
+      --googlebatch-network global/networks/network \
+      --googlebatch-subnetwork regions/us-central1/subnetworks/subnetwork
 
     ls
   >>>
