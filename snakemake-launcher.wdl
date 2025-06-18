@@ -8,7 +8,7 @@ task RunSnakemakeBatch {
   input {
     File snakefile
     File script
-    File inputs
+    File input_paths
     File env_yaml
     String remote_prefix
     String docker_image
@@ -33,7 +33,7 @@ task RunSnakemakeBatch {
     mkdir -p workspace &&
     cp ~{snakefile} workspace/Snakefile &&Add commentMore actions
     cp ~{script} workspace/check_file.py &&
-    cp ~{inputs} workspace/gcs_paths.txt &&
+    cp ~{input_paths} workspace/gcs_paths.txt &&
     cp ~{env_yaml} workspace/snakemake-env.yaml &&
     cd workspace
 
